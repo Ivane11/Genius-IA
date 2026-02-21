@@ -107,8 +107,8 @@ const Index = () => {
       
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Clean Header - Perfectly Centered Logo */}
-        <CleanHeader
+        {/* Futuristic Header */}
+        <FuturisticHeader
           mode={mode}
           onModeChange={setMode}
           sidebarOpen={sidebarOpen}
@@ -118,13 +118,13 @@ const Index = () => {
         />
 
         {/* Messages Area - Centered with max-w-3xl */}
-        <div className="flex-1 overflow-y-auto pb-32">
+        <div className="flex-1 overflow-y-auto pb-40">
           <div className="max-w-3xl mx-auto h-full px-4">
-            {/* Welcome State - Clean without Creator Card */}
+            {/* Welcome State - Clean without Logo */}
             {messages.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full py-12">
-                {/* Mini Suggestion Grid */}
-                <MiniSuggestionGrid mode={mode} onSuggestionClick={handleSend} />
+                {/* Neon Suggestion Grid */}
+                <NeonSuggestionGrid mode={mode} onSuggestionClick={handleSend} />
               </div>
             ) : (
               /* Chat Messages - Centered */
@@ -137,7 +137,6 @@ const Index = () => {
                     mode={mode}
                     imageUrl={msg.imageUrl}
                     images={msg.images}
-                    ocrResults={msg.ocrResults}
                   />
                 ))}
                 <div ref={bottomRef} />
@@ -146,8 +145,8 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Centered Chat Input with Glassmorphism */}
-        <CenteredChatInput onSend={handleSend} isLoading={isLoading} mode={mode} />
+        {/* Futuristic Chat Input */}
+        <FuturisticChatInput onSend={handleSend} isLoading={isLoading} mode={mode} />
       </div>
     </div>
   );
