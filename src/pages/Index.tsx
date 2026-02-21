@@ -6,7 +6,6 @@ import CenteredChatInput from "@/components/CenteredChatInput";
 import ChatSidebar, { Conversation } from "@/components/ChatSidebar";
 import MiniSuggestionGrid from "@/components/MiniSuggestionGrid";
 import { useChat, Message } from "@/hooks/useChat";
-import { OCRResult } from "@/lib/ocr";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -46,22 +45,19 @@ const Index = () => {
     }
   }, [messages, activeConvId, mode]);
 
-  const handleSend = useCallback(
-    (content: string, images?: string[], ocrResults?: OCRResult[]) => {
-      if (!activeConvId) {
-        const id = crypto.randomUUID();
-        const conv: Conversation = {
-          id,
-          title: content.slice(0, 40) || "Image",
-          mode,
-        };
-        setConversations((prev) => [conv, ...prev]);
-        setActiveConvId(id);
-      }
-      send(content, images, ocrResults);
-    },
-    [activeConvId, mode, send]
-  );
+  const handleSend = useCallback((message: string, images?: string[]) => {
+    if (!activeConvId) {
+      const id = crypto.randomUUID();
+      const conv: Conversation = {
+        id,
+        title: message.slice(0, 40) || "Image",
+        mode,
+      };
+      setConversations((prev) => [conv, ...prev]);
+      setActiveConvId(id);
+    }
+    send(message, images);
+  }, [activeConvId, mode, send]);
 
   const handleNewConversation = () => {
     setActiveConvId(null);

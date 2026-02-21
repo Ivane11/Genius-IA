@@ -1,7 +1,6 @@
 import React from "react";
 import { User, Bot, CheckCircle, Eye } from "lucide-react";
 import HighlightedMarkdown from "./HighlightedMarkdown";
-import { OCRResult } from "@/lib/ocr";
 import { Badge } from "@/components/ui/badge";
 
 interface ChatMessageProps {
@@ -10,7 +9,6 @@ interface ChatMessageProps {
   mode: "medicine" | "informatique";
   imageUrl?: string;
   images?: string[];
-  ocrResults?: OCRResult[];
 }
 
 const ChatMessage = ({ 
@@ -18,8 +16,7 @@ const ChatMessage = ({
   content, 
   mode, 
   imageUrl, 
-  images = [], 
-  ocrResults = [] 
+  images = []
 }: ChatMessageProps) => {
   const isUser = role === "user";
   
@@ -54,12 +51,6 @@ const ChatMessage = ({
               <span className="text-sm text-muted-foreground">
                 {displayImages.length} image(s)
               </span>
-              {ocrResults.length > 0 && (
-                <Badge variant="secondary" className="text-xs">
-                  <CheckCircle className="w-3 h-3 mr-1" />
-                  OCR {ocrResults.length}
-                </Badge>
-              )}
             </div>
             <div className={`grid gap-2 ${
               displayImages.length === 1 ? 'grid-cols-1' : 
@@ -73,41 +64,12 @@ const ChatMessage = ({
                     alt={`Uploaded ${index + 1}`}
                     className="w-full h-32 object-cover rounded-lg border border-border/30 cursor-pointer transition-transform hover:scale-105"
                     onClick={() => {
-                      // Open image in fullscreen or lightbox
-                      const link = document.createElement('a');
-                      link.href = img;
-                      link.target = '_blank';
-                      link.click();
+                      // Open image in new tab instead of fullscreen to prevent black screen
+                      window.open(img, '_blank');
                     }}
                   />
                   <div className="absolute top-1 left-1 bg-black/50 text-white text-xs px-1.5 py-0.5 rounded">
                     {index + 1}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* OCR Results Display - SEULEMENT pour l'assistant, pas pour l'utilisateur */}
-        {ocrResults.length > 0 && !isUser && (
-          <div className="mb-3 p-3 bg-secondary/20 rounded-lg">
-            <div className="flex items-center gap-2 mb-2">
-              <CheckCircle className="w-4 h-4 text-green-500" />
-              <span className="text-sm font-medium">Texte extrait par OCR</span>
-            </div>
-            <div className="space-y-2">
-              {ocrResults.map((result, index) => (
-                <div key={index} className="text-xs">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-medium">Question {index + 1}:</span>
-                    <Badge variant="outline" className="text-xs">
-                      {Math.round(result.confidence)}% confiance
-                    </Badge>
-                  </div>
-                  <div className="text-muted-foreground whitespace-pre-wrap">
-                    {result.text.slice(0, 200)}
-                    {result.text.length > 200 && '...'}
                   </div>
                 </div>
               ))}
