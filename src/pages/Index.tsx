@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Brain, Heart, Monitor, Sparkles } from "lucide-react";
-import CleanHeader from "@/components/CleanHeader";
+import FuturisticHeader from "@/components/FuturisticHeader";
 import ChatMessage from "@/components/ChatMessage";
-import CenteredChatInput from "@/components/CenteredChatInput";
+import FuturisticChatInput from "@/components/FuturisticChatInput";
 import ChatSidebar, { Conversation } from "@/components/ChatSidebar";
-import MiniSuggestionGrid from "@/components/MiniSuggestionGrid";
+import NeonSuggestionGrid from "@/components/NeonSuggestionGrid";
 import { useChat, Message } from "@/hooks/useChat";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
